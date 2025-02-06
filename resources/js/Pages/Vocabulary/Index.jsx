@@ -1,69 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import { Link, usePage, useForm } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import React, { useState, useEffect } from "react";
+import { Link, usePage, useForm } from "@inertiajs/react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 const VocabularyIndex = () => {
     const { vocabularies, search } = usePage().props;
     const { data, setData, get } = useForm({
-        search: search || '',
+        search: search || "",
     });
 
     useEffect(() => {
         if (search) {
-            setData('search', search);
+            setData("search", search);
         }
     }, [search]);
 
     const handleSearch = (e) => {
         e.preventDefault();
-        get(route('vocabulary.index', { search: data.search }));
+        get(route("vocabulary.index", { search: data.search }));
     };
 
     return (
-        <AuthenticatedLayout >
-            <div className="container mx-auto p-4">
-                <h1 className="text-3xl font-bold mb-4">Vocabulary List</h1>
+        <AuthenticatedLayout>
+            <div className="container mx-auto p-8 bg-black text-green-400 min-h-screen">
+                {/* Title */}
+                <h1 className="text-5xl font-serif text-green-500 font-bold mb-8 text-center pb-2">
+                    Vocabulary
+                </h1>
 
-                <form onSubmit={handleSearch} className="mb-4">
-                    <div className="flex items-center">
+                {/* Search Bar */}
+                <form onSubmit={handleSearch} className="mb-8">
+                    <div className="flex items-center gap-4 max-w-2xl mx-auto">
                         <input
                             type="text"
                             name="search"
                             value={data.search}
-                            onChange={(e) => setData('search', e.target.value)}
+                            onChange={(e) => setData("search", e.target.value)}
                             placeholder="Search for a term..."
-                            className="border p-2 rounded w-full mr-2"
+                            className="bg-gray-900 text-green-300 border border-green-500 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-lg font-mono"
                         />
-                        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+                        <button
+                            type="submit"
+                            className="bg-green-600 hover:bg-green-500 text-black font-bold px-6 py-3 rounded-md shadow-md transition duration-300"
+                        >
                             Search
                         </button>
                     </div>
                 </form>
 
+                {/* Dictionary Entries */}
                 {vocabularies.length > 0 ? (
-                    <ul className="list-disc pl-5">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-8xl mx-auto">
                         {vocabularies.map((vocabulary) => (
-                            <li key={vocabulary.id} className="mb-2">
-                                <Link 
-                                // href={route('vocabulary.show', vocabulary.id)} 
-                                className="text-blue-500 hover:underline">
+                            <div
+                                key={vocabulary.id}
+                                className="p-6 bg-gray-900 rounded-lg shadow-md transition-transform transform hover:scale-105"
+                            >
+                                {/* Word & Phonetics */}
+                                <h2 className="text-2xl font-bold font-serif text-green-500">
                                     {vocabulary.term}
-                                </Link>
-                                <p>{vocabulary.meaning}</p>
-                            </li>
+                                </h2>
+                                
+                                {/* Meaning */}
+                                <p className="text-green-300 mt-2 text-lg font-mono">
+                                    {vocabulary.meaning}
+                                </p>
+
+                                {/* Synonyms & Example Sentences */}
+                                <div className="mt-4 text-sm">
+                                    <p className="text-green-500 font-bold">Example:</p>
+                                    <p className="text-green-400 italic">
+                                        "This word is used in many programming contexts."
+                                    </p>
+                                </div>
+                            </div>
                         ))}
-                    </ul>
+                    </div>
                 ) : (
-                    <div className="text-gray-500">
-                        No results found for "{data.search}".{' '}
+                    <div className="text-center text-green-500 mt-12">
+                        No results found for "<span className="font-bold">{data.search}</span>".{" "}
                         <button
-                            onClick={() => {
-                                // Redirect to a suggestion form or modal
-                                alert(`Suggest "${data.search}" to the team?`);
-                            }}
-                            className="text-blue-500 hover:underline"
+                            onClick={() => alert(`Suggest "${data.search}" to the team?`)}
+                            className="text-green-400 hover:underline"
                         >
-                            Do you want to suggest to the team to add it?
+                            Do you want to suggest it?
                         </button>
                     </div>
                 )}

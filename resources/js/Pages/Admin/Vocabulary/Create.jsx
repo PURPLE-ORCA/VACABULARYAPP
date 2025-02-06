@@ -1,56 +1,83 @@
-import React from 'react';
-import { useForm, Link } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import React from "react";
+import { useForm, Link } from "@inertiajs/react";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 const CreateVocabulary = () => {
     const { data, setData, post, processing, errors } = useForm({
-        term: '',
-        meaning: '',
+        term: "",
+        meaning: "",
     });
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        post(route('admin.vocabulary.store'));
+        post(route("admin.vocabulary.store"));
     };
 
     return (
         <AuthenticatedLayout>
-            <div className="container mx-auto p-4">
-                <h1 className="text-3xl font-bold mb-4">Add New Vocabulary Term</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label htmlFor="term" className="block text-gray-700 font-bold mb-2">Term</label>
+            <div className="container mx-auto p-8 bg-black text-green-400 min-h-screen">
+                {/* Page Title */}
+                <h1 className="text-4xl font-bold text-center text-green-500 mb-8 pb-4">
+                    Add New Vocabulary Term
+                </h1>
+
+                {/* Form */}
+                <form
+                    onSubmit={handleSubmit}
+                    className="max-w-3xl mx-auto bg-gray-900 p-6 rounded-lg shadow-lg"
+                >
+                    {/* Term Input */}
+                    <div className="mb-6">
+                        <label htmlFor="term" className="block text-green-400 font-semibold mb-2">
+                            Term
+                        </label>
                         <input
                             type="text"
                             id="term"
                             name="term"
                             value={data.term}
-                            onChange={(e) => setData('term', e.target.value)}
-                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.term ? 'border-red-500' : ''}`}
+                            onChange={(e) => setData("term", e.target.value)}
+                            className={`w-full bg-gray-800 text-green-300 border ${
+                                errors.term ? "border-red-500" : "border-green-500"
+                            } p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-lg`}
                         />
-                        {errors.term && <p className="text-red-500 text-xs italic mt-1">{errors.term}</p>}
+                        {errors.term && <p className="text-red-400 text-sm mt-2">{errors.term}</p>}
                     </div>
-                    <div className="mb-4">
-                        <label htmlFor="meaning" className="block text-gray-700 font-bold mb-2">Meaning</label>
+
+                    {/* Meaning Input */}
+                    <div className="mb-6">
+                        <label htmlFor="meaning" className="block text-green-400 font-semibold mb-2">
+                            Meaning
+                        </label>
                         <textarea
                             id="meaning"
                             name="meaning"
                             value={data.meaning}
-                            onChange={(e) => setData('meaning', e.target.value)}
-                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.meaning ? 'border-red-500' : ''}`}
+                            onChange={(e) => setData("meaning", e.target.value)}
+                            className={`w-full bg-gray-800 text-green-300 border ${
+                                errors.meaning ? "border-red-500" : "border-green-500"
+                            } p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-lg`}
                             rows="4"
                         />
-                        {errors.meaning && <p className="text-red-500 text-xs italic mt-1">{errors.meaning}</p>}
+                        {errors.meaning && <p className="text-red-400 text-sm mt-2">{errors.meaning}</p>}
                     </div>
-                    <div className="flex items-center justify-between">
+
+                    {/* Buttons */}
+                    <div className="flex justify-between items-center">
+                        {/* Submit Button */}
                         <button
                             type="submit"
-                            className="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            className="bg-green-600 hover:bg-green-500 text-black font-bold px-6 py-3 rounded-md shadow-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={processing}
                         >
-                            Add Term
+                            {processing ? "Adding..." : "Add Term"}
                         </button>
-                        <Link href={route('admin.vocabulary.index')} className="text-gray-500 hover:text-blue-500">
+
+                        {/* Cancel Button */}
+                        <Link
+                            href={route("admin.vocabulary.index")}
+                            className="text-green-400 hover:text-red-400 transition duration-300"
+                        >
                             Cancel
                         </Link>
                     </div>
