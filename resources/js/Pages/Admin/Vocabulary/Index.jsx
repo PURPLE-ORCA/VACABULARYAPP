@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import ConfirmationModal from '@/Components/ConfirmationModal';
 
 const AdminVocabularyIndex = () => {
     const { vocabularies, auth } = usePage().props;
-    const { data, setData, get } = useForm({
+    const { data, setData, get, delete: deleteForm } = useForm({
         search: '',
     });
+    const [modalOpen, setModalOpen] = useState(false);
+    const [vocabularyToDelete, setVocabularyToDelete] = useState(null);
 
     const handleSearch = (e) => {
         e.preventDefault();
         get(route('admin.vocabulary.index', { search: data.search }));
     };
 
+    const handleDelete = (vocabulary) => {
+        setVocabularyToDelete(vocabulary);
+        setModalOpen(true);
+    };
+
+    const confirmDelete = () => {
+        if (vocabularyToDelete) {
+            deleteForm(route('admin.vocabulary.destroy', vocabularyToDelete.id));
+            setModalOpen(false);
+        }
+    };
+
+    const cancelDelete = () => {
+        setModalOpen(false);
+    };
+
     return (
         <AuthenticatedLayout>
             <div className="container mx-auto p-4">
                 <h1 className="text-3xl font-bold mb-4">Admin Vocabulary List</h1>
-
                 <form onSubmit={handleSearch} className="mb-4">
                     <div className="flex items-center">
                         <input
@@ -34,11 +52,9 @@ const AdminVocabularyIndex = () => {
                         </button>
                     </div>
                 </form>
-
                 <Link href={route('admin.vocabulary.create')} className="bg-green-500 text-white px-4 py-2 rounded mb-4">
                     Add New Term
                 </Link>
-
                 {vocabularies.length > 0 ? (
                     <table className="w-full border-collapse">
                         <thead>
@@ -57,11 +73,12 @@ const AdminVocabularyIndex = () => {
                                         <Link href={route('admin.vocabulary.edit', vocabulary.id)} className="text-blue-500 hover:underline mr-2">
                                             Edit
                                         </Link>
-                                        <form action={route('admin.vocabulary.destroy', vocabulary.id)} method="DELETE" style={{ display: 'inline' }}>
-                                            <button type="submit" className="text-red-500 hover:underline">
-                                                Delete
-                                            </button>
-                                        </form>
+                                        <button
+                                            onClick={() => handleDelete(vocabulary)}
+                                            className="text-red-500 hover:underline"
+                                        >
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -73,6 +90,13 @@ const AdminVocabularyIndex = () => {
                     </div>
                 )}
             </div>
+            <ConfirmationModal
+                isOpen={modalOpen}
+                onClose={cancelDelete}
+                onConfirm={confirmDelete}
+                title="Confirm Deletion"
+                message="Are you sure you want to delete this vocabulary term?"
+            />
         </AuthenticatedLayout>
     );
 };
