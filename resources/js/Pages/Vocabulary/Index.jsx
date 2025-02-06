@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { Link, usePage, useForm } from "@inertiajs/react";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import React, { useState, useEffect } from 'react';
+import { Link, usePage, useForm } from '@inertiajs/react';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 
 const VocabularyIndex = () => {
     const { vocabularies, search } = usePage().props;
@@ -26,7 +26,6 @@ const VocabularyIndex = () => {
                 <h1 className="text-5xl font-serif text-green-500 font-bold mb-8 text-center pb-2">
                     Vocabulary
                 </h1>
-
                 {/* Search Bar */}
                 <form onSubmit={handleSearch} className="mb-8">
                     <div className="flex items-center gap-4 max-w-2xl mx-auto">
@@ -46,11 +45,10 @@ const VocabularyIndex = () => {
                         </button>
                     </div>
                 </form>
-
                 {/* Dictionary Entries */}
-                {vocabularies.length > 0 ? (
+                {vocabularies.data.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-8xl mx-auto">
-                        {vocabularies.map((vocabulary) => (
+                        {vocabularies.data.map((vocabulary) => (
                             <div
                                 key={vocabulary.id}
                                 className="p-6 bg-gray-900 rounded-lg shadow-md transition-transform transform hover:scale-105"
@@ -64,7 +62,6 @@ const VocabularyIndex = () => {
                                 <p className="text-green-300 mt-2 text-lg font-mono">
                                     {vocabulary.meaning}
                                 </p>
-
                                 {/* Synonyms & Example Sentences */}
                                 <div className="mt-4 text-sm">
                                     <p className="text-green-500 font-bold text-lg">Example:</p>
@@ -78,14 +75,21 @@ const VocabularyIndex = () => {
                 ) : (
                     <div className="text-center text-green-500 mt-12">
                         No results found for "<span className="font-bold">{data.search}</span>".{" "}
-                        <button
-                            onClick={() => alert(`Suggest "${data.search}" to the team?`)}
-                            className="text-green-400 hover:underline"
-                        >
-                            Do you want to suggest it?
-                        </button>
                     </div>
                 )}
+                {/* Pagination Controls */}
+                <div className="mt-8 flex justify-center space-x-4">
+                    {vocabularies.prev_page_url && (
+                        <Link href={vocabularies.prev_page_url} className="bg-green-600 hover:bg-green-500 text-black font-bold px-6 py-3 rounded-md shadow-md transition duration-300">
+                            Previous
+                        </Link>
+                    )}
+                    {vocabularies.next_page_url && (
+                        <Link href={vocabularies.next_page_url} className="bg-green-600 hover:bg-green-500 text-black font-bold px-6 py-3 rounded-md shadow-md transition duration-300">
+                            Next
+                        </Link>
+                    )}
+                </div>
             </div>
         </AuthenticatedLayout>
     );

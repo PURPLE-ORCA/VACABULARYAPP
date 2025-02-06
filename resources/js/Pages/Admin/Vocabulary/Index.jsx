@@ -34,7 +34,6 @@ const AdminVocabularyIndex = () => {
                 <h1 className="text-4xl font-bold text-center text-green-500 mb-8 pb-4">
                     Admin Panel
                 </h1>
-
                 {/* Search Bar */}
                 <form onSubmit={handleSearch} className="mb-6 max-w-2xl mx-auto">
                     <div className="flex items-center gap-4">
@@ -54,7 +53,6 @@ const AdminVocabularyIndex = () => {
                         </button>
                     </div>
                 </form>
-
                 <Link
                     href={route("admin.vocabulary.create")}
                     className="m-4 text-green-600"
@@ -62,9 +60,8 @@ const AdminVocabularyIndex = () => {
                     <i className="bx bxs-plus-circle text-xl"></i>
                     <span className="inline">Add Term</span>
                 </Link>
-
                 {/* Vocabulary Table */}
-                {vocabularies.length > 0 ? (
+                {vocabularies.data.length > 0 ? (
                     <div className="overflow-x-auto max-w-8xl mx-auto mt-2">
                         <table className="w-full border border-green-500 text-white shadow-lg rounded-lg">
                             <thead>
@@ -76,7 +73,7 @@ const AdminVocabularyIndex = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {vocabularies.map((vocabulary) => (
+                                {vocabularies.data.map((vocabulary) => (
                                     <tr
                                         key={vocabulary.id}
                                         className="hover:bg-gray-800 transition duration-300"
@@ -86,7 +83,7 @@ const AdminVocabularyIndex = () => {
                                         </td>
                                         <td className="border border-green-400 p-3">{vocabulary.meaning}</td>
                                         <td className="border border-green-400 p-3">
-                                        {vocabulary.example ? vocabulary.example : 'No example provided'}
+                                            {vocabulary.example ? vocabulary.example : 'No example provided'}
                                         </td>
                                         <td className="border border-green-400 p-3 flex justify-center gap-4">
                                             {/* Edit */}
@@ -114,9 +111,21 @@ const AdminVocabularyIndex = () => {
                         No results found for "<span className="font-bold">{data.search}</span>".
                     </div>
                 )}
-
+                
+            {/* Pagination Controls */}
+            <div className="mt-8 flex justify-center space-x-4">
+                {vocabularies.prev_page_url && (
+                    <Link href={vocabularies.prev_page_url} className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded">
+                        Previous
+                    </Link>
+                )}
+                {vocabularies.next_page_url && (
+                    <Link href={vocabularies.next_page_url} className="bg-green-600 hover:bg-green-500 text-white px-4 py-2 rounded">
+                        Next
+                    </Link>
+                )}
             </div>
-
+            </div>
             {/* Confirmation Modal */}
             <ConfirmationModal
                 isOpen={modalOpen}

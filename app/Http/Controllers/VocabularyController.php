@@ -17,9 +17,9 @@ class VocabularyController extends Controller
         if ($search) {
             $vocabularies = Vocabulary::where('term', 'like', '%' . $search . '%')
                 ->orWhere('meaning', 'like', '%' . $search . '%')
-                ->get();
+                ->paginate(9);
         } else {
-            $vocabularies = Vocabulary::all();
+            $vocabularies = Vocabulary::paginate(9);
         }
 
         return inertia('Vocabulary/Index', [
@@ -38,9 +38,9 @@ class VocabularyController extends Controller
         if ($search) {
             $vocabularies = Vocabulary::where('term', 'like', '%' . $search . '%')
                 ->orWhere('meaning', 'like', '%' . $search . '%')
-                ->get();
+                ->paginate(10);
         } else {
-            $vocabularies = Vocabulary::all();
+            $vocabularies = Vocabulary::paginate(10);
         }
 
         return inertia('Admin/Vocabulary/Index', [
