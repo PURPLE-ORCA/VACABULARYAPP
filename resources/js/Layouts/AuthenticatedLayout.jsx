@@ -30,6 +30,18 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route('vocabulary.index')}
+                                    active={route().current('vocabulary.index')}
+                                >
+                                    View Vocabulary
+                                </NavLink>
+                                <NavLink
+                                    href={route('admin.vocabulary.index')}
+                                    active={route().current('admin.vocabulary.index')}
+                                >
+                                    Manage Vocabulary
+                                </NavLink>
                             </div>
                         </div>
 
@@ -133,6 +145,18 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('dashboard')}
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('vocabulary.index')}
+                            active={route().current('vocabulary.index')}
+                        >
+                            View Vocabulary
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('admin.vocabulary.index')}
+                            active={route().current('admin.vocabulary.index')}
+                        >
+                            Manage Vocabulary
                         </ResponsiveNavLink>
                     </div>
 

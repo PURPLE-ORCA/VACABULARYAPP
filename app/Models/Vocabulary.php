@@ -9,4 +9,6 @@ class Vocabulary extends Model
 {
     /** @use HasFactory<\Database\Factories\VocabularyFactory> */
     use HasFactory;
+
+    protected $fillable = ['term', 'meaning'];
 }
