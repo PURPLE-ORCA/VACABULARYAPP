@@ -67,9 +67,9 @@ const VocabularyIndex = () => {
 
                                 {/* Synonyms & Example Sentences */}
                                 <div className="mt-4 text-sm">
-                                    <p className="text-green-500 font-bold">Example:</p>
+                                    <p className="text-green-500 font-bold text-lg">Example:</p>
                                     <p className="text-green-400 italic">
-                                        "This word is used in many programming contexts."
+                                        {vocabulary.example}
                                     </p>
                                 </div>
                             </div>

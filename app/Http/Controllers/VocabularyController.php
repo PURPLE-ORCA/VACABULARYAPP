@@ -62,6 +62,7 @@ class VocabularyController extends Controller
         $validated = $request->validate([
             'term' => 'required|string|max:255',
             'meaning' => 'required|string',
+            'example' => 'nullable|string',
         ]);
 
         Vocabulary::create($validated);
@@ -87,6 +88,7 @@ class VocabularyController extends Controller
         $validated = $request->validate([
             'term' => 'required|string|max:255',
             'meaning' => 'required|string',
+            'example' => 'nullable|string',
         ]);
 
         $vocabulary->update($validated);

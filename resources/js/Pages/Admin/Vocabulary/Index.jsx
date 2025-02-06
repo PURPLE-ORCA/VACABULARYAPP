@@ -63,6 +63,7 @@ const AdminVocabularyIndex = () => {
                                 <tr className="bg-gray-900">
                                     <th className="border border-green-400 p-3 text-left">Term</th>
                                     <th className="border border-green-400 p-3 text-left">Meaning</th>
+                                    <th className="border border-green-400 p-3 text-left">Example</th>
                                     <th className="border border-green-400 p-3 text-center">Actions</th>
                                 </tr>
                             </thead>
@@ -76,6 +77,9 @@ const AdminVocabularyIndex = () => {
                                             {vocabulary.term}
                                         </td>
                                         <td className="border border-green-400 p-3">{vocabulary.meaning}</td>
+                                        <td className="border border-green-400 p-3">
+                                        {vocabulary.example ? vocabulary.example : 'No example provided'}
+                                        </td>
                                         <td className="border border-green-400 p-3 flex justify-center gap-4">
                                             {/* Edit */}
                                             <Link

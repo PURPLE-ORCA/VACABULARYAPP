@@ -38,7 +38,7 @@ export default function Welcome({ auth }) {
                 {/* Hero Section */}
                 <main className="text-center mt-20 p-6">
                     <h1 className="text-5xl font-extrabold text-green-500 mb-4">
-                        Welcome to VOCAB 🚀
+                        Welcome to VOCAB 🧾
                     </h1>
                     <p className="text-lg text-green-300 mb-6">
                         Explore the world of tech terms, one word at a time.

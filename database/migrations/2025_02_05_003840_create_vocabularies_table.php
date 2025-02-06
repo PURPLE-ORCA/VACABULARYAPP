@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('term');
             $table->text('meaning');
+            $table->text('example')->nullable();
             $table->boolean('is_from_client')->default(false);
             $table->timestamps();
         });
