@@ -6,6 +6,7 @@ const CreateVocabulary = () => {
     const { data, setData, post, processing, errors } = useForm({
         term: "",
         meaning: "",
+        example: "",
     });
 
     const handleSubmit = (e) => {
@@ -60,6 +61,23 @@ const CreateVocabulary = () => {
                             rows="4"
                         />
                         {errors.meaning && <p className="text-red-400 text-sm mt-2">{errors.meaning}</p>}
+                    </div>
+                    
+                    <div className="mb-6">
+                        <label htmlFor="example" className="block text-green-400 font-semibold mb-2">
+                            Example
+                        </label>
+                        <textarea
+                            id="example"
+                            name="example"
+                            value={data.example}
+                            onChange={(e) => setData("example", e.target.value)}
+                            className={`w-full bg-gray-800 text-green-300 border ${
+                                errors.example ? "border-red-500" : "border-green-500"
+                            } p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 text-lg`}
+                            rows="4"
+                        />
+                        {errors.example && <p className="text-red-400 text-sm mt-2">{errors.example}</p>}
                     </div>
 
                     {/* Buttons */}

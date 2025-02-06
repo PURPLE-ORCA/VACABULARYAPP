@@ -55,9 +55,17 @@ const AdminVocabularyIndex = () => {
                     </div>
                 </form>
 
+                <Link
+                    href={route("admin.vocabulary.create")}
+                    className="m-4 text-green-600"
+                >
+                    <i className="bx bxs-plus-circle text-xl"></i>
+                    <span className="inline">Add Term</span>
+                </Link>
+
                 {/* Vocabulary Table */}
                 {vocabularies.length > 0 ? (
-                    <div className="overflow-x-auto max-w-8xl mx-auto">
+                    <div className="overflow-x-auto max-w-8xl mx-auto mt-2">
                         <table className="w-full border border-green-500 text-white shadow-lg rounded-lg">
                             <thead>
                                 <tr className="bg-gray-900">
@@ -107,14 +115,6 @@ const AdminVocabularyIndex = () => {
                     </div>
                 )}
 
-                {/* Floating Add Button */}
-                <Link
-                    href={route("admin.vocabulary.create")}
-                    className="fixed bottom-8 right-8 bg-green-600 hover:bg-green-500 text-black font-bold p-4 rounded-full shadow-lg transition duration-300 flex items-center gap-2"
-                >
-                    <i className="bx bxs-plus-circle text-2xl"></i>
-                    <span className="hidden md:inline">Add Term</span>
-                </Link>
             </div>
 
             {/* Confirmation Modal */}
